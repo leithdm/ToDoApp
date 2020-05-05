@@ -27,6 +27,11 @@ public class SecondActivity extends AppCompatActivity {
     public void onBackPressed() {
         MainActivity._notes.add(_index, _textView.getText().toString());
         MainActivity._notes.remove(_index+1);
+        try {
+            MainActivity.sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(MainActivity._notes)).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         MainActivity._arrayAdapter.notifyDataSetChanged();
         finish();
     }
