@@ -28,6 +28,9 @@ public class SecondActivity extends AppCompatActivity {
         MainActivity._notes.set(_index, _textView.getText().toString());
         try {
             MainActivity.sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(MainActivity._notes)).apply();
+            //using a HashSet
+            //HashSet<String> set = new HashSet<>(MainActivity.notes);
+            //sharedPreferences.edit().putStringSet("notes", set).apply();
         } catch (Exception e) {
             e.printStackTrace();
         }

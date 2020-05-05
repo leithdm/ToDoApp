@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     static ArrayAdapter _arrayAdapter;
     static SharedPreferences sharedPreferences;
 
+    //Could have used a HashSet here to store (unordered) all the notes. This would have meant no need for ObjectSerializer code
+    //HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -95,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 _notes.remove(itemToDelete);
+
+                                //using a HashSet
+                                //HashSet<String> set = new HashSet<>(MainActivity.notes);
+                                //sharedPreferences.edit().putStringSet("notes", set).apply();
+
                                 try {
                                     sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(_notes)).apply();
                                 } catch (Exception e) {
