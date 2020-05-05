@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     static ArrayList<String> _notes = new ArrayList<>();
     static ArrayAdapter _arrayAdapter;
-    static SharedPreferences sharedPreferences;
+    static SharedPreferences _sharedPreferences;
 
     //Could have used a HashSet here to store (unordered) all the notes. This would have meant no need for ObjectSerializer code
     //HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = this.getSharedPreferences("package com.darrenmleith.todolist", Context.MODE_PRIVATE);
+        _sharedPreferences = this.getSharedPreferences("package com.darrenmleith.todolist", Context.MODE_PRIVATE);
         ArrayList<String> returnedNotes = new ArrayList<>();
         try {
-            returnedNotes = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("notes", ObjectSerializer.serialize(new ArrayList<String>())));
+            returnedNotes = (ArrayList<String>) ObjectSerializer.deserialize(_sharedPreferences.getString("notes", ObjectSerializer.serialize(new ArrayList<String>())));
 
             if (returnedNotes.size()>0) {
                 _notes = returnedNotes;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                 //sharedPreferences.edit().putStringSet("notes", set).apply();
 
                                 try {
-                                    sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(_notes)).apply();
+                                    _sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(_notes)).apply();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

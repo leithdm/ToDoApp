@@ -27,7 +27,7 @@ public class SecondActivity extends AppCompatActivity {
     public void onBackPressed() {
         MainActivity._notes.set(_index, _textView.getText().toString());
         try {
-            MainActivity.sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(MainActivity._notes)).apply();
+            MainActivity._sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(MainActivity._notes)).apply();
             //using a HashSet
             //HashSet<String> set = new HashSet<>(MainActivity.notes);
             //sharedPreferences.edit().putStringSet("notes", set).apply();
